@@ -34,7 +34,7 @@ class SchemeEnvironment:
     def set_var(self, var: Symbol, val: Any):
         self.table[var.value()] = val
 
-    def extend(self, vars: List[Symbol], vals: List[Any]) -> SchemeEnvironment:
+    def extend(self, vars: List[Symbol], vals: List[Any]):
         new_env = SchemeEnvironment()
         new_env.table = self.table.copy()
         for var, val in zip(vars, vals):
