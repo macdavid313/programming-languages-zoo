@@ -19,6 +19,7 @@ from typing import Any, Dict, List
 
 from sexpdata import Quoted, Symbol
 from sexpdata import loads as parse_sexp
+from prompt_toolkit import PromptSession
 
 
 class SchemeEnvironment:
@@ -148,3 +149,25 @@ def eval_apply_funcall(x, env: SchemeEnvironment):
     func = eval_scheme(x[0], env)
     args = [eval_scheme(arg, env) for arg in x[1:]]
     return func(*args)
+
+
+def scheme():
+    global_env = SchemeEnvironment.init_global()
+    session = PromptSession(
+        message="little scheme > ",
+    )
+
+    while True:
+        try:
+            input = session.prompt()
+        except KeyboardInterrupt:
+            continue
+        except EOFError:
+            print("Bye bye.")
+            exit(0)
+        else:
+            print(eval_scheme(parse_sexp(input), global_env))
+
+
+if __name__ == "__main__":
+    scheme()
