@@ -91,22 +91,34 @@ class SchemeEnvironment:
 
 def eval_scheme(x, env: SchemeEnvironment):
     match x:
-        case int(n) | float(n) | str(n): return n
-        case Quoted(): return eval_quoted(x, env)
-        case Symbol(): return eval_symbol(x, env)
-        case []: return x
+        case int(n) | float(n):
+            return n
+        case Quoted():
+            return eval_quoted(x, env)
+        case Symbol():
+            return eval_symbol(x, env)
+        case []:
+            return x
         case [first, *_]:
             match first:
                 case Symbol():
                     match first.value():
-                        case "begin": return eval_begin(x, env)
-                        case "set!": return eval_set(x, env)
-                        case "if": return eval_if(x, env)
-                        case "lambda": return eval_lambda(x, env)
-                        case _: return eval_apply_funcall(x, env)
+                        case "begin":
+                            return eval_begin(x, env)
+                        case "set!":
+                            return eval_set(x, env)
+                        case "define":
+                            return eval_define(x, env)
+                        case "if":
+                            return eval_if(x, env)
+                        case "lambda":
+                            return eval_lambda(x, env)
+                        case _:
+                            return eval_apply_funcall(x, env)
                 case _:
                     return eval_apply_funcall(x, env)
-        case _: raise SchemeInvalidExpressionError(x)
+        case _:
+            raise SchemeInvalidExpressionError(x)
 
 
 def eval_quoted(x, env: SchemeEnvironment):
@@ -132,7 +144,24 @@ def eval_set(x, env: SchemeEnvironment):
     match x:
         case [_, var, val]:
             env.set_var(var, eval_scheme(val, env))
-            return var.value()
+            return
+        case _:
+            raise SchemeInvalidExpressionError(x)
+
+
+def eval_define(x, env: SchemeEnvironment):
+    match x:
+        case [_, Symbol(), form]:
+            sym: Symbol = x[1]
+            return eval_scheme(
+                [Symbol("begin"), [Symbol("set!"), sym, form], Quoted(sym.value())],
+                env,
+            )
+        case [_, [Symbol(), *params], *body]:
+            sym: Symbol = x[1][0]
+            return eval_scheme(
+                [Symbol("define"), sym, [Symbol("lambda"), params, *body]], env
+            )
         case _:
             raise SchemeInvalidExpressionError(x)
 
