@@ -12,6 +12,10 @@ sexpdata = "^0.0.3"
 prompt-toolkit = "^3.0.31"
 
 
+[tool.poetry.group.dev.dependencies]
+debugpy = "^1.6.3"
+ipython = "^8.5.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
