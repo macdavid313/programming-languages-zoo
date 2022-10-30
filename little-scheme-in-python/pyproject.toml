@@ -15,3 +15,21 @@ prompt-toolkit = "^3.0.31"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py310', 'py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # The following are specific to Black, you probably don't want those.
+  | blib2to3
+  | tests/data
+  | profiling
+)/
+'''
+
+[tool.isort]
+multi_line_output = 3
+line_length = 88
+include_trailing_comma = true
