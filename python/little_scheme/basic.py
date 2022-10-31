@@ -1,11 +1,10 @@
 from sexpdata import Quoted, Symbol
-from sexpdata import loads as parse_sexp
 
 from little_scheme.common import SchemeEnvironment, SchemeInvalidExpressionError
 
 
 def eval_scheme(x, env: SchemeEnvironment):
-    match parse_sexp(x):
+    match x:
         case int(n) | float(n):
             return n
         case Quoted():

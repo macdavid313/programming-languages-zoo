@@ -2,6 +2,9 @@ import argparse
 import importlib
 
 from prompt_toolkit import PromptSession
+from prompt_toolkit.lexers import PygmentsLexer
+from pygments.lexers.lisp import SchemeLexer
+from sexpdata import loads as parse_sexp
 
 from little_scheme.common import SchemeEnvironment
 
@@ -16,7 +19,7 @@ def get_argparser():
 if __name__ == "__main__":
     parser = get_argparser()
     args = parser.parse_args()
-    prompt_session = PromptSession(message="little scheme > ")
+    prompt_session = PromptSession(message="little scheme > ", lexer=PygmentsLexer(SchemeLexer))
     module = importlib.import_module(f"little_scheme.{args.variant}")
     global_env = SchemeEnvironment.init_global()
 
@@ -25,7 +28,7 @@ if __name__ == "__main__":
             input = prompt_session.prompt().strip()
             if not input:
                 continue
-            res = module.eval_scheme(input, global_env)
+            res = module.eval_scheme(parse_sexp(input), global_env)
         except KeyboardInterrupt:
             continue
         except EOFError:
