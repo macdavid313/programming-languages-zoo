@@ -10,16 +10,17 @@ from little_scheme.common import SchemeEnvironment
 
 
 def get_argparser():
-    parser = argparse.ArgumentParser(
-        description="Little toy scheme interpreter"
-    )
+    parser = argparse.ArgumentParser(description="Little toy scheme interpreter")
     parser.add_argument("--variant", default="basic", choices=["basic"])
     return parser
+
 
 if __name__ == "__main__":
     parser = get_argparser()
     args = parser.parse_args()
-    prompt_session = PromptSession(message="little scheme > ", lexer=PygmentsLexer(SchemeLexer))
+    prompt_session = PromptSession(
+        message="little scheme > ", lexer=PygmentsLexer(SchemeLexer)
+    )
     module = importlib.import_module(f"little_scheme.{args.variant}")
     global_env = SchemeEnvironment.init_global()
 

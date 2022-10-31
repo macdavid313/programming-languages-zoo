@@ -40,7 +40,7 @@ namespace Brainfuck
 
 #if DEBUG
             Console.WriteLine("--------------- All Code Emitted Successfully. ---------------\n");
-#endif            
+#endif
 
             type.CreateType()
                 .GetMethod("Main", bindingFlags)
