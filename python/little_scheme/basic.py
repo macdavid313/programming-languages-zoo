@@ -48,10 +48,9 @@ class SchemeEnvironment:
         self.table: Dict[Symbol, Any] = {}
 
     def get_var(self, var: Symbol):
-        val = self.table.get(var.value())
-        if not val:
-            raise SchemeUnboundVaribleError(var)
-        return val
+        if var.value() in self.table.keys():
+            return self.table[var.value()]
+        raise SchemeUnboundVaribleError(var)
 
     def set_var(self, var: Symbol, val: Any):
         self.table[var.value()] = val
