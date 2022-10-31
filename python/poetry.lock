@@ -189,7 +189,7 @@ tests = ["pytest"]
 name = "pygments"
 version = "2.13.0"
 description = "Pygments is a syntax highlighting package written in Python."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -251,7 +251,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "0a1d15eec158486b2f02a5a45c3aa0012587d76382a8553c258dc127f0b48921"
+content-hash = "a380263e510b9824698f4c53d2d4e911592c4ef938daada980b87abe0c51c3ac"
 
 [metadata.files]
 appnope = [

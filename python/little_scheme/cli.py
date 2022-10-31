@@ -15,7 +15,7 @@ def get_argparser():
     return parser
 
 
-if __name__ == "__main__":
+def main():
     parser = get_argparser()
     args = parser.parse_args()
     prompt_session = PromptSession(
@@ -40,3 +40,7 @@ if __name__ == "__main__":
             continue
         else:
             print(res)
+
+
+if __name__ == "__main__":
+    main()

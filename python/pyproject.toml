@@ -8,6 +8,7 @@ packages = [{include = "little_scheme"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 sexpdata = "^0.0.3"
+Pygments = "^2.13.0"
 prompt-toolkit = "^3.0.31"
 
 [tool.poetry.group.dev.dependencies]
@@ -15,7 +16,7 @@ debugpy = "^1.6.3"
 ipython = "^8.5.0"
 
 [tool.poetry.scripts]
-little-scheme = "little_scheme.basic:scheme"
+little-scheme = "little_scheme.cli:main"
 
 [build-system]
 requires = ["poetry-core"]

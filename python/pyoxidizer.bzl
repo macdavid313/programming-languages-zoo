@@ -87,10 +87,10 @@ def make_exe():
     # an optional fallback.
 
     # Use in-memory location for adding resources by default.
-    policy.resources_location = "in-memory"
+    # policy.resources_location = "in-memory"
 
     # Use filesystem-relative location for adding resources by default.
-    # policy.resources_location = "filesystem-relative:prefix"
+    policy.resources_location = "filesystem-relative:lib"
 
     # Attempt to add resources relative to the built binary when
     # `resources_location` fails.
@@ -193,7 +193,7 @@ def make_exe():
     # python_config.run_command = "<code>"
 
     # Run a Python module as __main__ when the interpreter starts.
-    python_config.run_module = "little_scheme.basic"
+    python_config.run_module = "little_scheme.cli"
 
     # Run a Python file when the interpreter starts.
     # python_config.run_filename = "/path/to/file"
@@ -212,7 +212,7 @@ def make_exe():
         config=python_config,
     )
 
-    # Install tcl/tk support files to a specified directory so the `tkinter` Python
+    # Install tcl/tk support files to a specificlirectory so the `tkinter` Python
     # module works.
     # exe.tcl_files_path = "lib"
 
