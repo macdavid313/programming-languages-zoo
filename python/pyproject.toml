@@ -3,18 +3,19 @@ name = "little-scheme"
 version = "0.1.0"
 description = "Little Scheme language playground."
 authors = ["Tianyu Gu <macdavid313@gmail.com>"]
-readme = "README.md"
-packages = [{include = "scheme0"}]
+packages = [{include = "little_scheme"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 sexpdata = "^0.0.3"
 prompt-toolkit = "^3.0.31"
 
-
 [tool.poetry.group.dev.dependencies]
 debugpy = "^1.6.3"
 ipython = "^8.5.0"
+
+[tool.poetry.scripts]
+little-scheme = "little_scheme.basic:scheme"
 
 [build-system]
 requires = ["poetry-core"]
