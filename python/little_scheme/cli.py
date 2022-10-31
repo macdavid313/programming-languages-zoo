@@ -2,27 +2,42 @@ import argparse
 import importlib
 
 from prompt_toolkit import PromptSession
+from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
 from prompt_toolkit.lexers import PygmentsLexer
+from prompt_toolkit.output import ColorDepth
+from prompt_toolkit.styles import style_from_pygments_cls
 from pygments.lexers.lisp import SchemeLexer
+from pygments.styles.emacs import EmacsStyle
 from sexpdata import loads as parse_sexp
 
 from little_scheme.common import SchemeEnvironment
 
 
 def get_argparser():
-    parser = argparse.ArgumentParser(description="Little toy scheme interpreter")
+    parser = argparse.ArgumentParser(
+        prog="little-scheme", description="Little toy scheme interpreter"
+    )
     parser.add_argument("--variant", default="basic", choices=["basic"])
     return parser
 
 
-def main():
-    parser = get_argparser()
-    args = parser.parse_args()
-    prompt_session = PromptSession(
-        message="little scheme > ", lexer=PygmentsLexer(SchemeLexer)
+def get_prompt_session():
+    return PromptSession(
+        message="little scheme λ ",
+        lexer=PygmentsLexer(SchemeLexer),
+        auto_suggest=AutoSuggestFromHistory(),
+        style=style_from_pygments_cls(EmacsStyle),
+        color_depth=ColorDepth.TRUE_COLOR,
     )
+
+
+def main():
+    args = get_argparser().parse_args()
     module = importlib.import_module(f"little_scheme.{args.variant}")
+
     global_env = SchemeEnvironment.init_global()
+
+    prompt_session = get_prompt_session()
 
     while True:
         try:
