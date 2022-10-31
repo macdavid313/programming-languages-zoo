@@ -1,15 +1,11 @@
-from prompt_toolkit import PromptSession
 from sexpdata import Quoted, Symbol
 from sexpdata import loads as parse_sexp
 
-from little_scheme.common import (
-    SchemeEnvironment,
-    SchemeInvalidExpressionError,
-)
+from little_scheme.common import SchemeEnvironment, SchemeInvalidExpressionError
 
 
 def eval_scheme(x, env: SchemeEnvironment):
-    match x:
+    match parse_sexp(x):
         case int(n) | float(n):
             return n
         case Quoted():
@@ -121,31 +117,3 @@ def eval_apply_funcall(x, env: SchemeEnvironment):
             return func(*args)
         case _:
             raise SchemeInvalidExpressionError(x)
-
-
-def scheme():
-    global_env = SchemeEnvironment.init_global()
-    session = PromptSession(
-        message="little scheme > ",
-    )
-
-    while True:
-        try:
-            input = session.prompt().strip()
-            if not input:
-                continue
-            res = eval_scheme(parse_sexp(input), global_env)
-        except KeyboardInterrupt:
-            continue
-        except EOFError:
-            print("Bye bye.")
-            exit(0)
-        except Exception as e:
-            print(e)
-            continue
-        else:
-            print(res)
-
-
-if __name__ == "__main__":
-    scheme()
