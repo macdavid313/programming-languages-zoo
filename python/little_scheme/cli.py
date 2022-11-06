@@ -17,7 +17,7 @@ def get_argparser():
     parser = argparse.ArgumentParser(
         prog="little-scheme", description="Little toy scheme interpreter"
     )
-    parser.add_argument("--variant", default="basic", choices=["basic"])
+    parser.add_argument("--variant", default="basic", choices=["basic", "tco"])
     return parser
 
 
