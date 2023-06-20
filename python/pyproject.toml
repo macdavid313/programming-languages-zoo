@@ -1,26 +1,25 @@
-[tool.poetry]
+[project]
 name = "little-scheme"
 version = "0.1.0"
 description = "Little Scheme language playground."
-authors = ["Tianyu Gu <macdavid313@gmail.com>"]
-packages = [{include = "little_scheme"}]
+authors = [
+    {name = "Tianyu Gu", email = "macdavid313@gmail.com"},
+]
+dependencies = [
+    "sexpdata>=0.0.3",
+    "Pygments>=2.13.0",
+    "prompt-toolkit>=3.0.31",
+]
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
 
-[tool.poetry.dependencies]
-python = "^3.10"
-sexpdata = "^0.0.3"
-Pygments = "^2.13.0"
-prompt-toolkit = "^3.0.31"
-
-[tool.poetry.group.dev.dependencies]
-debugpy = "^1.6.3"
-ipython = "^8.5.0"
-
-[tool.poetry.scripts]
-little-scheme = "little_scheme.cli:main"
+[tool.pdm.scripts]
+little-scheme = { call = "little_scheme.cli:main" }
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
 [tool.black]
 line-length = 88
@@ -39,3 +38,9 @@ extend-exclude = '''
 multi_line_output = 3
 line_length = 88
 include_trailing_comma = true
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "debugpy>=1.6.3",
+    "ipython>=8.5.0",
+]
