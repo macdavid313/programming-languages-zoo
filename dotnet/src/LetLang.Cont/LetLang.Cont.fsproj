@@ -1,18 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<?xml version="1.0"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
+    <PublishAot>true</PublishAot>
   </PropertyGroup>
-
   <ItemGroup>
-    <Compile Include="Cont.fs" />
-    <Compile Include="Eval.fs" />
-    <Compile Include="Repl.fs" />
+    <Compile Include="Cont.fs"/>
+    <Compile Include="Eval.fs"/>
+    <Compile Include="Repl.fs"/>
   </ItemGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\LetLang.Base\LetLang.Base.fsproj" />
+    <ProjectReference Include="..\LetLang.Base\LetLang.Base.fsproj"/>
   </ItemGroup>
-
 </Project>
